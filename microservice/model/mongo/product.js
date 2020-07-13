@@ -110,7 +110,7 @@ Product.prototype.get = function (data, cb) {
 						"items": response
 					});
 				} else {
-					__self.count(data, (error, count) => {
+					__self.count(data, condition, (error, count) => {
 						if (error) {
 							return cb(error);
 						} else {
@@ -128,11 +128,10 @@ Product.prototype.get = function (data, cb) {
 	}
 };
 
-Product.prototype.count = function (data, cb) {
+Product.prototype.count = function (data, condition, cb) {
 	let __self = this;
 	
 	let options = {};
-	let condition = {};
 	__self.mongoCore.countDocuments(colName, condition, options, cb);
 	
 };
