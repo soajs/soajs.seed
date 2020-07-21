@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/home">SOAJS.io</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <a routerLink="/product">Our Product</a>
+      </li>
+      <li>
+        <a routerLink="/whyus">Why Us</a>
+      </li>
+      <li>
+        <a routerLink="/store">Store</a>
+      </li>
+      <li>
+        <a routerLink="/member">Member Area</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
