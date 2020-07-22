@@ -1,13 +1,18 @@
-a{
+.mat-nav-list a{
   text-decoration: none;
   color: white;
 }
 
-a:hover, a:active{
+.mat-nav-list a:hover, a:active{
   color: lightgray;
 }
 
-.nav-caption{
+.mat-nav-list .nav-caption{
   display: inline-block;
   padding-left: 6px;
+}
+
+mat-nav-list{
+  border-radius: 3px;
+  background: #325169;
 }

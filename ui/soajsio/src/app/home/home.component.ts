@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+import {UracService} from '../services/urac.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private uracService: UracService,
+    private authenticationService: AuthenticationService
+  ) {
 
-  ngOnInit(): void {
   }
 
-  public executeSelectedChange = (event) => {
-    console.log(event);
+  ngOnInit(): void {
+    this.authenticationService.login("owner", "password");
+    setTimeout(() => {
+      this.uracService.getUser();
+      setTimeout(() => {
+        this.authenticationService.logout();
+      }, 5000);
+    }, 5000);
   }
 }

@@ -1,5 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+
 import {NgModule} from '@angular/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
@@ -18,6 +20,8 @@ import {StoreComponent} from './store/store.component';
 import {MemberComponent} from './member/member.component';
 import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.component';
 
+import {SoajskeyInterceptor} from './services/soajskey.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +39,12 @@ import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.compo
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: SoajskeyInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
