@@ -17,18 +17,14 @@ export class UracService {
 
   public getUser(): any {
     let username = this.authenticationService.currentUsernameValue;
-    if (username) {
-      this.http.get<any>(environment.apiEndpoint + '/urac/user?username=' + username).subscribe(resp => {
-        const result: any = resp;
-        console.log("URAC");
-        console.log(result);
-        return result;
-      }, error => {
-        console.log(error);
-        return null;
-      });
-    } else {
-      return null
+    if (!username) {
+      return null;
     }
+    return this.http.get<any>(environment.apiEndpoint + '/urac/user?username=' + username).subscribe(resp => {
+      return resp;
+    }, error => {
+      console.log(error);
+      return null;
+    });
   }
 }

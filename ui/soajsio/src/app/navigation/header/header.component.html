@@ -18,8 +18,14 @@
       <li>
         <a routerLink="/store">Store</a>
       </li>
-      <li>
-        <a routerLink="/member">Member Area</a>
+      <!--<li>-->
+      <!--<a routerLink="/member">Member Area</a>-->
+      <!--</li>-->
+      <li *ngIf="!userInfo">
+        <a (click)="login()">Login</a>
+      </li>
+      <li *ngIf="userInfo">
+        <a (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>

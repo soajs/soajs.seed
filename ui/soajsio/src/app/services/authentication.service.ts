@@ -4,7 +4,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {Token} from '../models/token';
-import {environment} from "soajs.seed/ui/soajsio/src/environments/environment";
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
