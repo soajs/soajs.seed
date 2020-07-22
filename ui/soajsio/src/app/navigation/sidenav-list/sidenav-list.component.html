@@ -8,7 +8,13 @@
   <a mat-list-item routerLink="/store" (click)="onSidenavClose()">
     <mat-icon>store</mat-icon><span class="nav-caption">Store</span>
   </a>
-  <a mat-list-item routerLink="/member" (click)="onSidenavClose()">
-    <mat-icon>lock</mat-icon><span class="nav-caption">Member Area</span>
+  <!--<a mat-list-item routerLink="/member" (click)="onSidenavClose()">-->
+    <!--<mat-icon>lock</mat-icon><span class="nav-caption">Member Area</span>-->
+  <!--</a>-->
+  <a mat-list-item *ngIf="!userInfo" (click)="login();onSidenavClose()">
+    <mat-icon>lock</mat-icon><span class="nav-caption">Login</span>
+  </a>
+  <a mat-list-item *ngIf="userInfo" (click)="logout();onSidenavClose()">
+    <mat-icon>lock</mat-icon><span class="nav-caption">Logout</span>
   </a>
 </mat-nav-list>
