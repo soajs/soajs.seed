@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {NgModule} from '@angular/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -21,6 +22,7 @@ import {MemberComponent} from './member/member.component';
 import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.component';
 
 import {SoajskeyInterceptor} from './services/soajskey.interceptor';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {SoajskeyInterceptor} from './services/soajskey.interceptor';
     MemberComponent,
     HeaderComponent,
     LayoutComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import {SoajskeyInterceptor} from './services/soajskey.interceptor';
     AppRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: SoajskeyInterceptor, multi: true},

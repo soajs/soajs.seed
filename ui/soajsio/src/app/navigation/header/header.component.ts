@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {UracService} from '../../services/urac.service';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -14,25 +15,25 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private uracService: UracService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
-
+    this.uracService.userInfo.subscribe(userInfo => this.userInfo = userInfo);
   }
 
   login() {
-    this.authenticationService.login("owner", "password");
-    setTimeout(() => {
-      this.userInfo = this.uracService.getUser();
-      console.log(this.userInfo);
-    }, 1000);
+    this.userInfo = this.uracService.getUser();
+    console.log(this.userInfo);
   }
+
 
   logout() {
     this.authenticationService.logout();
     this.userInfo = null;
+    this.router.navigate(["/home"]);
   }
 
   public onToggleSidenav = () => {

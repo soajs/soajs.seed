@@ -48,12 +48,8 @@ export class AuthenticationService {
           localStorage.setItem('token', JSON.stringify(token));
           this.currentTokenSubject.next(token);
         }
-        //return token;
-      })).subscribe(resp => {
-        return resp;
-      }, error => {
-        return error;
-      });
+        return token;
+      }));
   }
 
   logout() {

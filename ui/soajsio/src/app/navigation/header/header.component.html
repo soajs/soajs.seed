@@ -22,7 +22,7 @@
       <!--<a routerLink="/member">Member Area</a>-->
       <!--</li>-->
       <li *ngIf="!userInfo">
-        <a (click)="login()">Login</a>
+        <a routerLink="/login">Login</a>
       </li>
       <li *ngIf="userInfo">
         <a (click)="logout()">Logout</a>

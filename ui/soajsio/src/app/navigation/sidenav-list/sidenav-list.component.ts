@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {UracService} from '../../services/urac.service';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -14,18 +15,20 @@ export class SidenavListComponent implements OnInit {
 
   constructor(
     private uracService: UracService,
-    private authenticationService: AuthenticationService
-  ) { }
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
+  }
 
   ngOnInit() {
+    this.uracService.userInfo.subscribe(userInfo => this.userInfo = userInfo);
   }
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();
-  }
+  };
 
   login() {
-    this.authenticationService.login("owner", "password");
     setTimeout(() => {
       this.userInfo = this.uracService.getUser();
       console.log(this.userInfo);
@@ -35,5 +38,6 @@ export class SidenavListComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.userInfo = null;
+    this.router.navigate(["/home"]);
   }
 }

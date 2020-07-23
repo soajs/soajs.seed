@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
 
 import {environment} from '../../environments/environment';
 import {AuthenticationService} from './authentication.service';
@@ -8,6 +9,8 @@ import {AuthenticationService} from './authentication.service';
   providedIn: 'root'
 })
 export class UracService {
+  private userInfoSource = new BehaviorSubject(null);
+  userInfo = this.userInfoSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -18,13 +21,13 @@ export class UracService {
   public getUser(): any {
     let username = this.authenticationService.currentUsernameValue;
     if (!username) {
-      return null;
+      this.userInfoSource.next(null);
     }
-    return this.http.get<any>(environment.apiEndpoint + '/urac/user?username=' + username).subscribe(resp => {
-      return resp;
+    this.http.get<any>(environment.apiEndpoint + '/urac/user?username=' + username).subscribe(resp => {
+      this.userInfoSource.next(resp);
     }, error => {
       console.log(error);
-      return null;
+      this.userInfoSource.next(null);
     });
   }
 }
