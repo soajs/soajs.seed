@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-import {Token} from '../models/token';
+import {Token} from '../_models/token';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -78,17 +78,8 @@ export class AuthenticationService {
 
   logout() {
     if (this.currentTokenSubject && this.currentTokenSubject.value) {
-      this.http.delete<any>(environment.apiEndpoint + '/oauth/refreshToken/' + this.currentTokenSubject.value.refresh_token).subscribe(resp => {
-        return resp;
-      }, error => {
-        return error;
-      });
-
-      this.http.delete<any>(environment.apiEndpoint + '/oauth/accessToken/' + this.currentTokenSubject.value.access_token).subscribe(resp => {
-        return resp;
-      }, error => {
-        return error;
-      });
+      this.http.delete<any>(environment.apiEndpoint + '/oauth/refreshToken/' + this.currentTokenSubject.value.refresh_token).subscribe();
+      this.http.delete<any>(environment.apiEndpoint + '/oauth/accessToken/' + this.currentTokenSubject.value.access_token).subscribe();
     }
     // remove user from local storage to log user out
     localStorage.removeItem('token');

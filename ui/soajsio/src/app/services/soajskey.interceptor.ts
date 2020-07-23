@@ -5,6 +5,8 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {AuthenticationService} from './authentication.service';
 
+import {noToken} from '../../assets/apis';
+
 @Injectable()
 export class SoajskeyInterceptor implements HttpInterceptor {
 
@@ -14,26 +16,24 @@ export class SoajskeyInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request.url.indexOf("/oauth/token") === -1) {
-      let access_token = this.authenticationService.currentAccessTokenValue;
-      if (access_token) {
-        request = request.clone({
-          headers: new HttpHeaders({
-            'key': environment.tenant,
-            'access_token': access_token
-          })
-        });
-      } else {
-        request = request.clone({
-          headers: new HttpHeaders({
-            'key': environment.tenant
-          })
-        });
-      }
-    } else {
+    let access_token = this.authenticationService.currentAccessTokenValue;
+    let url = request.url;
+    if (url.indexOf("?") !== -1) {
+      url = url.substr(0, url.indexOf("?"));
+    }
+    url = url.substr(url.indexOf("://") + 3);
+    url = url.substr(url.indexOf("/"));
+    if (url !== '' && (noToken.includes(url) || !access_token)) {
       request = request.clone({
         headers: new HttpHeaders({
           'key': environment.tenant
+        })
+      });
+    } else {
+      request = request.clone({
+        headers: new HttpHeaders({
+          'key': environment.tenant,
+          'access_token': access_token
         })
       });
     }

@@ -14,6 +14,8 @@ import {tap} from "rxjs/operators";
 import {UracService} from '../services/urac.service';
 import {AuthenticationService} from './authentication.service';
 
+import {badTokenMessages} from '../../assets/config';
+
 @Injectable()
 export class SoajsresInterceptor implements HttpInterceptor {
 
@@ -34,22 +36,26 @@ export class SoajsresInterceptor implements HttpInterceptor {
           }
         },
         (error: HttpErrorResponse) => {
-          if (this.authenticationService.canReLogin()) {
-            this.authenticationService.reLogin().subscribe(resp => {
-              this.uracService.getUser();
-              this.router.navigate(["/member"]);
-            }, error => {
-              console.log(error);
+          if (error.status === 401 && error.error.errors.codes[0] === 401 && badTokenMessages.includes(error.error.errors.details[0].message)) {
+            if (this.authenticationService.canReLogin()) {
+              this.authenticationService.reLogin().subscribe(resp => {
+                if (resp && resp.access_token) {
+                  this.uracService.getUser();
+                } else {
+                  this.authenticationService.logout();
+                  this.router.navigate(["/home"]);
+                }
+              }, error => {
+                console.log(error);
+                this.authenticationService.logout();
+                this.router.navigate(["/home"]);
+              });
+            } else {
               this.authenticationService.logout();
               this.router.navigate(["/home"]);
-            });
-          } else {
-            console.log(error);
-            this.authenticationService.logout();
-            this.router.navigate(["/home"]);
+            }
           }
-        }
-      )
+        })
     );
   }
 }

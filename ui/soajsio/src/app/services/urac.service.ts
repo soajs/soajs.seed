@@ -25,8 +25,7 @@ export class UracService {
     }
     this.http.get<any>(environment.apiEndpoint + '/urac/user?username=' + username).subscribe(resp => {
       this.userInfoSource.next(resp);
-    }, error => {
-      console.log(error);
+    }, _ => {
       this.userInfoSource.next(null);
     });
   }

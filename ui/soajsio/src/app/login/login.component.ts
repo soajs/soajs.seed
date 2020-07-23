@@ -42,13 +42,16 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe(resp => {
-      this.uracService.getUser();
-      this.router.navigate(["/member"]);
+      if (resp && resp.access_token) {
+        this.uracService.getUser();
+        this.router.navigate(["/member"]);
+      } else {
+        this.error = resp;
+        this.loading = false;
+      }
     }, error => {
-      console.log(error);
-      this.error = error;
+      this.error = error.error.errors.details[0].message;
       this.loading = false;
-      this.router.navigate(["/home"]);
     });
   }
 }
