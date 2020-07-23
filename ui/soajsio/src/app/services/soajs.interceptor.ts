@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -9,7 +8,7 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
-import {BehaviorSubject, Observable} from "rxjs";
+import {throwError, BehaviorSubject, Observable} from "rxjs";
 import {filter, switchMap, take, tap} from "rxjs/operators";
 
 import {UracService} from '../services/urac.service';
@@ -27,7 +26,6 @@ export class SoajsInterceptor implements HttpInterceptor {
   constructor(
     private uracService: UracService,
     private authenticationService: AuthenticationService,
-    private router: Router
   ) {
   }
 
@@ -92,6 +90,8 @@ export class SoajsInterceptor implements HttpInterceptor {
             } else {
               return this.authenticationService.logout();
             }
+          } else {
+            return throwError(error);
           }
         }
       ))
