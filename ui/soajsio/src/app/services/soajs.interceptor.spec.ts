@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SoajsresInterceptor } from './soajsres.interceptor';
+import { SoajsInterceptor } from './soajs.interceptor';
 
-describe('SoajsresInterceptor', () => {
+describe('SoajsInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      SoajsresInterceptor
+      SoajsInterceptor
       ]
   }));
 
   it('should be created', () => {
-    const interceptor: SoajsresInterceptor = TestBed.inject(SoajsresInterceptor);
+    const interceptor: SoajsInterceptor = TestBed.inject(SoajsInterceptor);
     expect(interceptor).toBeTruthy();
   });
 });

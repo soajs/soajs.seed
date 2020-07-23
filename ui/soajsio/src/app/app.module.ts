@@ -21,8 +21,7 @@ import {StoreComponent} from './store/store.component';
 import {MemberComponent} from './member/member.component';
 import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.component';
 
-import {SoajskeyInterceptor} from './services/soajskey.interceptor';
-import {SoajsresInterceptor} from './services/soajsres.interceptor';
+import {SoajsInterceptor} from './services/soajs.interceptor';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
@@ -48,8 +47,7 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: SoajskeyInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: SoajsresInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: SoajsInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
