@@ -33,7 +33,9 @@ export class AuthenticationService {
       return null;
     }
   }
-
+  public get isLoggedIn(): boolean {
+    return !!(this.currentTokenSubject && this.currentTokenSubject.value);
+  }
   login(email: string, password: string): any {
     const body = {
       username: email,
