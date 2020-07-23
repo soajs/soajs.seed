@@ -10,7 +10,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import {BehaviorSubject, Observable} from "rxjs";
-import {tap, take, switchMap, filter} from "rxjs/operators";
+import {filter, switchMap, take, tap} from "rxjs/operators";
 
 import {UracService} from '../services/urac.service';
 import {AuthenticationService} from './authentication.service';
@@ -53,49 +53,47 @@ export class SoajsInterceptor implements HttpInterceptor {
         })
       });
     }
-    return next.handle(request).pipe (
-        tap(
-          (event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-              console.log(event.body);
-              console.log(event.status);
-            }
-          },
-          (error: HttpErrorResponse) => {
-            if (error && error.status === 401 && error.error.errors.codes[0] === 401 && badTokenMessages.includes(error.error.errors.details[0].message)) {
-              if (this.authenticationService.canReLogin()) {
-                if (this.refreshTokenInProgress) {
-                  return this.refreshTokenSubject.pipe(
-                    filter(result => result !== null),
-                    take(1),
-                    switchMap(() => next.handle(request))
-                  );
-                } else {
-                  this.refreshTokenInProgress = true;
-                  this.refreshTokenSubject.next(null);
-                  this.authenticationService.reLogin().subscribe(resp => {
-                    if (resp && resp.access_token) {
-                      this.refreshTokenSubject.next(true);
-                      this.uracService.getUser();
-                      this.refreshTokenInProgress = false;
-                    } else {
-                      this.authenticationService.logout();
-                      this.refreshTokenInProgress = false;
-                      this.router.navigate(["/home"]);
-                    }
-                  }, error => {
-                    console.log(error);
-                    this.authenticationService.logout();
-                    this.refreshTokenInProgress = false;
-                    this.router.navigate(["/home"]);
-                  });
-                }
+    return next.handle(request).pipe(
+      tap(
+        (event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            console.log(event.body);
+            console.log(event.status);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          if (error && error.status === 401 && error.error.errors.codes[0] === 401 && badTokenMessages.includes(error.error.errors.details[0].message)) {
+            if (this.authenticationService.canReLogin()) {
+              if (this.refreshTokenInProgress) {
+                return this.refreshTokenSubject.pipe(
+                  filter(result => result !== null),
+                  take(1),
+                  switchMap(() => next.handle(request))
+                );
               } else {
-                this.authenticationService.logout();
-                this.router.navigate(["/home"]);
+                this.refreshTokenInProgress = true;
+                this.refreshTokenSubject.next(null);
+                return this.authenticationService.reLogin().subscribe(resp => {
+                  if (resp && resp.access_token) {
+                    this.refreshTokenSubject.next(true);
+                    this.uracService.getUser();
+                    this.refreshTokenInProgress = false;
+                    return next.handle(request)
+                  } else {
+                    this.refreshTokenInProgress = false;
+                    return this.authenticationService.logout();
+                  }
+                }, error => {
+                  console.log(error);
+                  this.refreshTokenInProgress = false;
+                  return this.authenticationService.logout();
+                });
               }
+            } else {
+              return this.authenticationService.logout();
             }
           }
-        ))
-    };
+        }
+      ))
+  };
 }

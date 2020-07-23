@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 import {Token} from '../_models/token';
 import {environment} from '../../environments/environment';
@@ -13,7 +14,10 @@ export class AuthenticationService {
   private currentTokenSubject: BehaviorSubject<Token>;
   public currentToken: Observable<Token>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.currentTokenSubject = new BehaviorSubject<Token>(JSON.parse(localStorage.getItem('token')));
     this.currentToken = this.currentTokenSubject.asObservable();
   }
@@ -84,5 +88,7 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem('token');
     this.currentTokenSubject.next(null);
+    this.router.navigate(["/home"]);
+    return null;
   }
 }
