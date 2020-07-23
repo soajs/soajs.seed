@@ -28,13 +28,6 @@ export class SidenavListComponent implements OnInit {
     this.sidenavClose.emit();
   };
 
-  login() {
-    setTimeout(() => {
-      this.userInfo = this.uracService.getUser();
-      console.log(this.userInfo);
-    }, 1000);
-  }
-
   logout() {
     this.authenticationService.logout();
     this.userInfo = null;

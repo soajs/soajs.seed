@@ -24,12 +24,6 @@ export class HeaderComponent implements OnInit {
     this.uracService.userInfo.subscribe(userInfo => this.userInfo = userInfo);
   }
 
-  login() {
-    this.userInfo = this.uracService.getUser();
-    console.log(this.userInfo);
-  }
-
-
   logout() {
     this.authenticationService.logout();
     this.userInfo = null;

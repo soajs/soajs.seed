@@ -33,9 +33,11 @@ export class AuthenticationService {
       return null;
     }
   }
+
   public get isLoggedIn(): boolean {
     return !!(this.currentTokenSubject && this.currentTokenSubject.value);
   }
+
   login(email: string, password: string): any {
     const body = {
       username: email,
@@ -54,19 +56,40 @@ export class AuthenticationService {
       }));
   }
 
+  canReLogin(): boolean {
+    return !!(this.currentTokenSubject && this.currentTokenSubject.value && this.currentTokenSubject.value.refresh_token && this.currentTokenSubject.value.username);
+  }
+
+  reLogin(): any {
+    const body = {
+      refresh_token: this.currentTokenSubject.value.refresh_token,
+      grant_type: 'refresh_token'
+    };
+    return this.http.post<any>(environment.apiEndpoint + '/oauth/token', body)
+      .pipe(map(token => {
+        if (token && token.access_token) {
+          token.username = this.currentTokenSubject.value.username;
+          localStorage.setItem('token', JSON.stringify(token));
+          this.currentTokenSubject.next(token);
+        }
+        return token;
+      }));
+  }
+
   logout() {
-    this.http.delete<any>(environment.apiEndpoint + '/oauth/refreshToken/' + this.currentTokenSubject.value.refresh_token).subscribe(resp => {
-      return resp;
-    }, error => {
-      return error;
-    });
+    if (this.currentTokenSubject && this.currentTokenSubject.value) {
+      this.http.delete<any>(environment.apiEndpoint + '/oauth/refreshToken/' + this.currentTokenSubject.value.refresh_token).subscribe(resp => {
+        return resp;
+      }, error => {
+        return error;
+      });
 
-    this.http.delete<any>(environment.apiEndpoint + '/oauth/accessToken/' + this.currentTokenSubject.value.access_token).subscribe(resp => {
-      return resp;
-    }, error => {
-      return error;
-    });
-
+      this.http.delete<any>(environment.apiEndpoint + '/oauth/accessToken/' + this.currentTokenSubject.value.access_token).subscribe(resp => {
+        return resp;
+      }, error => {
+        return error;
+      });
+    }
     // remove user from local storage to log user out
     localStorage.removeItem('token');
     this.currentTokenSubject.next(null);
