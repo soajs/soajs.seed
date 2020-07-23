@@ -1,0 +1,18 @@
+.mat-nav-list a{
+  text-decoration: none;
+  color: white;
+}
+
+.mat-nav-list a:hover, a:active{
+  color: lightgray;
+}
+
+.mat-nav-list .nav-caption{
+  display: inline-block;
+  padding-left: 6px;
+}
+
+mat-nav-list{
+  border-radius: 3px;
+  background: #325169;
+}

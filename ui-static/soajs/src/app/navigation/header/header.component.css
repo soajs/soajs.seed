@@ -1,0 +1,29 @@
+.mat-toolbar a {
+  text-decoration: none;
+  color: white;
+}
+
+.mat-toolbar a:hover, a:active{
+  color: lightgray;
+}
+
+.mat-toolbar .navigation-items{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-toolbar button {
+  margin-right: 10px;
+}
+mat-toolbar{
+  border-radius: 3px;
+  background: #325169;
+  padding: 10px;
+}
+
+@media(max-width: 959px){
+  mat-toolbar{
+    border-radius: 0px;
+  }
+}
