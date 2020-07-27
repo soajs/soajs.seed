@@ -16,6 +16,9 @@
 .mat-toolbar button {
   margin-right: 10px;
 }
+.mat-toolbar select {
+  margin-left: 15px;
+}
 mat-toolbar{
   border-radius: 3px;
   background: #325169;

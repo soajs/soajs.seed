@@ -20,4 +20,11 @@
       </li>
     </ul>
   </div>
+  <div>
+    <select matNativeControl [(ngModel)]="lang" (change)="switchLanguage()">
+      <option *ngFor="let ln of availableLang" [value]="ln" [selected]="ln === lang">
+        {{ln}}
+      </option>
+    </select>
+  </div>
 </mat-toolbar>
