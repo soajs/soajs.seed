@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "soajs": {
+    "soajsio": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/soajs",
+            "outputPath": "dist/soajsio",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -25,8 +25,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/font/soajs.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -67,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "soajs:build"
+            "browserTarget": "soajsio:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "soajs:build:production"
+              "browserTarget": "soajsio:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "soajs:build"
+            "browserTarget": "soajsio:build"
           }
         },
         "test": {
@@ -115,15 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "soajs:serve"
+            "devServerTarget": "soajsio:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "soajs:serve:production"
+              "devServerTarget": "soajsio:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "soajs"
+  "defaultProject": "soajsio"
 }

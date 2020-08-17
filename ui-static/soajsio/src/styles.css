@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@charset "utf-8";
+/* CSS Document */
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+body, html {
+  font-size: 16px;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.9em;
+  letter-spacing: 1px;
+}
+
+.white-text {
+  color: white;
+}
+
+.gray-text {
+  color: #383838;
+}
+
+.orange-text {
+  color: #F4B500;
+}
+
+.section-padding {
+  padding-bottom: 60px;
+  padding-top: 60px;
+}

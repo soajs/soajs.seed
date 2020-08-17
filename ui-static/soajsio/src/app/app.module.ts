@@ -1,29 +1,27 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
+
+import {NgModule} from '@angular/core';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
-
 import {MaterialModule} from './material/material.module';
-import {AppRoutingModule} from './routing/app-routing.module';
 
+import {AppRoutingModule} from './routing/app-routing.module';
 import {AppComponent} from './app.component';
 
-import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.component';
-import {HeaderComponent} from './navigation/header/header.component';
-import {LayoutComponent} from './layout/layout.component';
+import {FooterComponent} from "./footer/footer.component";
+import {HeaderComponent} from "./header/header.component";
 
-import {ProductComponent} from './product/product.component';
 import {HomeComponent} from './home/home.component';
-import {WhyusComponent} from './whyus/whyus.component';
-import {StoreComponent} from './store/store.component';
-import {FooterComponent} from './footer/footer.component';
 
+import {StoreComponent} from './store/store.component';
+import {LoginComponent} from './login/login.component';
+
+import {SoajsInterceptor} from './services/soajs.interceptor';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,14 +30,13 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
-    HomeComponent,
-    WhyusComponent,
-    StoreComponent,
+
     HeaderComponent,
-    LayoutComponent,
-    SidenavListComponent,
-    FooterComponent
+    FooterComponent,
+
+    HomeComponent,
+    StoreComponent,
+    LoginComponent
   ],
   imports: [
     TranslateModule.forRoot({
@@ -54,11 +51,12 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    FlexLayoutModule,
-    ReactiveFormsModule,
-    FormsModule
+
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: SoajsInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

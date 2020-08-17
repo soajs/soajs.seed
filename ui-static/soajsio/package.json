@@ -1,5 +1,5 @@
 {
-  "name": "soajs",
+  "name": "soajsio",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -16,12 +16,12 @@
     "@angular/common": "~10.0.4",
     "@angular/compiler": "~10.0.4",
     "@angular/core": "~10.0.4",
-    "@angular/flex-layout": "~10.0.0-beta.32",
     "@angular/forms": "~10.0.4",
     "@angular/material": "~10.1.0",
     "@angular/platform-browser": "~10.0.4",
     "@angular/platform-browser-dynamic": "~10.0.4",
     "@angular/router": "~10.0.4",
+    "@types/jquery": "~3.5.1",
     "@ngx-translate/core": "~13.0.0",
     "@ngx-translate/http-loader": "~6.0.0",
     "bootstrap": "~4.5.0",

@@ -1,0 +1,43 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light">
+  <div class="container">
+  <a class="navbar-brand" href="#"><div id="logo"></div></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto" >
+      <li class="nav-item">
+        <a class="nav-link" href="#product">Our Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#whyus">Why Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/store">Store</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="memberarea" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Member Area
+        </a>
+        <div *ngIf="!userInfo" class="dropdown-menu" aria-labelledby="memberarea">
+          <a class="dropdown-item" href="/login">Login</a>
+          <a class="dropdown-item" href="/join">Join</a>
+        </div>
+        <div *ngIf="userInfo" class="dropdown-menu" aria-labelledby="memberarea">
+          <button class="dropdown-item" (click)="logout()">Logout</button>
+        </div>
+      </li>
+      <li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="language" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{lang}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="language">
+          <button class="dropdown-item" *ngFor="let ln of availableLang" (click)="switchLanguage(ln)">{{ln}}</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>

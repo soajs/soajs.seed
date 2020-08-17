@@ -1,0 +1,44 @@
+nav #logo {
+  height: 26px;
+  max-height: 26px;
+  width: 100%; /* force logo to follow the container width it belongs to*/
+  min-width: 145px;
+  display: table;
+  background-image: url('../../assets/images/soajsio-white.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+
+nav #logo.blueLogo {
+  background-image: url('../../assets/images/soajsio.png');
+}
+
+.navbar {
+  background-color: #224665; /* #30414f*/
+}
+
+.navbar.scrolling {
+  background-color: white;
+  border-bottom: 1px grey solid;
+}
+
+.nav-item > a {
+  color: #FFFFFF;
+  text-shadow: none;
+}
+
+.nav-item > a:hover {
+  color: #F4B500;
+  text-shadow: none;
+}
+
+.navbar.scrolling .nav-item > a {
+  color: #383838;
+}
+
+.navbar.scrolling .nav-item > a:hover {
+  color: #F4B500;
+  background-color: transparent;
+}
